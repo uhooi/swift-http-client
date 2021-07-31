@@ -51,6 +51,72 @@ TBD
 
 You can just import `HTTPClient` to use it.
 
+1. Implement a request body structure that conforms to the `Encodable` protocol. (Optional)
+
+```swift
+struct RegisterUserRequestBody: Encodable {
+    let name: String
+    let description: String
+}
+```
+
+2. Implement a response body structure that conforms to the `Decodable` protocol.
+
+```swift
+struct UserID: Decodable {
+    let id: String
+}
+```
+
+3. Implement a request structure that conforms to the `Request` protocol.
+
+```swift
+import HTTPClient
+
+struct RegisterUserRequest: Request {
+    typealias ResponseBody = UserID
+    var path: String { "user/create_user" }
+    var httpMethod: HTTPMethod { .post }
+    var httpHeaders: [HTTPHeaderField: String]? { [.contentType: ContentType.applicationJson.rawValue] }
+}
+```
+
+4. Create an instance of the `HTTPClient` class and call the `request` method.
+
+```swift
+protocol VersatileRepository {
+    func registerUser(name: String, description: String, completion: @escaping (Result<UserID, Error>) -> Void)
+}
+```
+
+```swift
+import HTTPClient
+
+final class VersatileAPIClient {
+    static let shared = VersatileAPIClient()
+    
+    private let httpClient = HTTPClient(baseURLString: "https://example.com/api/")
+}
+
+extension VersatileAPIClient: VersatileRepository {
+    func registerUser(name: String, description: String, completion: @escaping (Result<UserID, Error>) -> Void) {
+        let requestBody = RegisterUserRequestBody(name: name, description: description)
+        httpClient.request(RegisterUserRequest(), requestBody: requestBody, completion: completion)
+    }
+}
+```
+
+```swift
+VersatileAPIClient.shared.registerUser(name: "Uhooi", description: "Green monster.") { result in
+    switch result {
+        case let .success(userID):
+            // Do something.
+        case let .failure(error):
+            // Do error handling.
+    }
+}
+```
+
 ## Contribution
 
 I would be happy if you contribute :)
