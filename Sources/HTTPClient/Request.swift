@@ -9,7 +9,7 @@ public protocol Request {
     var httpHeaders: [HTTPHeaderField: String]? { get }
 }
 
-extension Request {
+public extension Request {
     var queryItems: [URLQueryItem]? { nil }
     var httpHeaders: [HTTPHeaderField: String]? { nil }
 }
