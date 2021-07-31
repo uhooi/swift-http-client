@@ -19,11 +19,25 @@ Communicate via HTTP easily in Swift.
 
 #### Package
 
-TBD
+You can add this package to `Package.swift`, include it in your target dependencies.
+
+```swift
+let package = Package(
+    dependencies: [
+        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.1.0")),
+    ],
+    targets: [
+        .target(
+            name: "<your-target-name>",
+            dependencies: ["HTTPClient"]),
+    ]
+)
+```
 
 #### Xcode
 
-TBD
+You can add this package on Xcode.
+See [documentation](https://developer.apple.com/documentation/swift_packages/adding_package_dependencies_to_your_app).
 
 ### CocoaPods
 
