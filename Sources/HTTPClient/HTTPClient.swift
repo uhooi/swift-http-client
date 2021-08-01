@@ -10,7 +10,7 @@ public final class HTTPClient {
     // MARK: Initializers
     
     /// Initializer.
-    /// - Parameter baseURLString: base URL string.
+    /// - Parameter baseURLString: Base URL string.
     public init(baseURLString: String) {
         self.baseURLString = baseURLString
     }
