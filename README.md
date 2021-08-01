@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/uhooi/swift-http-client/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/uhooi/swift-http-client/actions/workflows/main.yml)
 [![Release](https://img.shields.io/github/v/release/uhooi/swift-http-client)](https://github.com/uhooi/swift-http-client/releases/latest)
+[![CocoaPods Version](https://img.shields.io/cocoapods/v/UHIHTTPClient.svg)](https://cocoapods.org/pods/UHIHTTPClient)
 [![License](https://img.shields.io/github/license/uhooi/swift-http-client)](https://github.com/uhooi/swift-http-client/blob/main/LICENSE)
 [![Twitter](https://img.shields.io/twitter/follow/the_uhooi?style=social)](https://twitter.com/the_uhooi)
 
@@ -24,7 +25,7 @@ You can add this package to `Package.swift`, include it in your target dependenc
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.1.1")),
+        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.2.1")),
     ],
     targets: [
         .target(
@@ -41,7 +42,11 @@ See [documentation](https://developer.apple.com/documentation/swift_packages/add
 
 ### CocoaPods
 
-TBD
+This library is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your `Podfile`:
+
+```ruby
+pod 'UHIHTTPClient', '~> 0.2.1'
+```
 
 ### Carthage
 
