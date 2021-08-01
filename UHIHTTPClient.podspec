@@ -1,5 +1,5 @@
 Pod::Spec.new do |spec|
-  spec.name             = 'HTTPClient'
+  spec.name             = 'UHIHTTPClient'
   spec.version          = '0.1.1'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.summary          = 'Communicate via HTTP easily in Swift.'
