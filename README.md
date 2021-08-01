@@ -24,7 +24,7 @@ You can add this package to `Package.swift`, include it in your target dependenc
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.1.1")),
+        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.2.1")),
     ],
     targets: [
         .target(
