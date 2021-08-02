@@ -28,7 +28,7 @@ You can add this package to `Package.swift`, include it in your target dependenc
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.3.0")),
+        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.4.0")),
     ],
     targets: [
         .target(
@@ -48,7 +48,7 @@ See [documentation](https://developer.apple.com/documentation/swift_packages/add
 This library is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your `Podfile`:
 
 ```ruby
-pod 'UHIHTTPClient', '~> 0.3.0'
+pod 'UHIHTTPClient', '~> 0.4.0'
 ```
 
 ### Carthage
@@ -56,7 +56,7 @@ pod 'UHIHTTPClient', '~> 0.3.0'
 This library is available through [Carthage](https://github.com/Carthage/Carthage). To install it, simply add the following line to your `Cartfile`:
 
 ```
-github "uhooi/swift-http-client" ~> 0.3.0
+github "uhooi/swift-http-client" ~> 0.4.0
 ```
 
 ## How to use
