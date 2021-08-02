@@ -75,8 +75,12 @@ struct RegisterUserRequestBody: Encodable {
 2. Implement a response body structure that conforms to the `Decodable` protocol.
 
 ```swift
-struct UserID: Decodable {
+struct RegisterUserResponseBody: Decodable {
     let id: String
+}
+
+extension RegisterUserResponseBody {
+    func convertToUserID() -> UserID { .init(id: self.id) }
 }
 ```
 
@@ -86,7 +90,7 @@ struct UserID: Decodable {
 import HTTPClient
 
 struct RegisterUserRequest: Request {
-    typealias ResponseBody = UserID
+    typealias ResponseBody = RegisterUserResponseBody
     var path: String { "user/create_user" }
     var httpMethod: HTTPMethod { .post }
     var httpHeaders: [HTTPHeaderField: String]? { [.contentType: ContentType.applicationJson.rawValue] }
@@ -94,6 +98,12 @@ struct RegisterUserRequest: Request {
 ```
 
 4. Create an instance of the `HTTPClient` class and call the `request` method.
+
+```swift
+struct UserID: Identifiable, Equatable {
+    let id: String
+}
+```
 
 ```swift
 protocol VersatileRepository {
@@ -113,7 +123,14 @@ final class VersatileAPIClient {
 extension VersatileAPIClient: VersatileRepository {
     func registerUser(name: String, description: String, completion: @escaping (Result<UserID, Error>) -> Void) {
         let requestBody = RegisterUserRequestBody(name: name, description: description)
-        httpClient.request(RegisterUserRequest(), requestBody: requestBody, completion: completion)
+        httpClient.request(RegisterUserRequest(), requestBody: requestBody) { result in
+            switch result {
+            case let .success(responseBody):
+                completion(.success(responseBody.convertToUserID()))
+            case let .failure(error):
+                completion(.failure(error))
+            }
+        }
     }
 }
 ```
