@@ -18,31 +18,10 @@ public final class HTTPClient {
     // MARK: Other Public Methods
     
     /// Send an HTTP request.
-    ///
-    /// No response.
-    ///
     /// - Parameters:
     ///   - requestContents: Request contents.
     ///   - completion: Completion handler.
-    public func request<T: Request>(_ requestContents: T, completion: @escaping (Error?) -> Void) {
-        let request: URLRequest
-        do {
-            request = try createRequest(requestContents)
-        } catch let error {
-            completion(error)
-            return
-        }
-        
-        self.request(request, completion: completion)
-    }
-    
-    /// Send an HTTP request.
-    ///
-    /// Response.
-    ///
-    /// - Parameters:
-    ///   - requestContents: Request contents.
-    ///   - completion: Completion handler.
+    /// - SeeAlso: ``request(_:requestBody:completion:)``
     public func request<T: Request>(_ requestContents: T, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
         let request: URLRequest
         do {
@@ -56,34 +35,11 @@ public final class HTTPClient {
     }
     
     /// Send an HTTP request.
-    ///
-    /// No response.
-    ///
     /// - Parameters:
     ///   - requestContents: Request contents.
     ///   - requestBody: Request body.
     ///   - completion: Completion handler.
-    public func request<T: Request, U: Encodable>(_ requestContents: T, requestBody: U, completion: @escaping (Error?) -> Void) {
-        var request: URLRequest
-        do {
-            request = try createRequest(requestContents)
-            request.httpBody = try JSONEncoder().encode(requestBody)
-        } catch let error {
-            completion(error)
-            return
-        }
-        
-        self.request(request, completion: completion)
-    }
-    
-    /// Send an HTTP request.
-    ///
-    /// Response.
-    ///
-    /// - Parameters:
-    ///   - requestContents: Request contents.
-    ///   - requestBody: Request body.
-    ///   - completion: Completion handler.
+    /// - SeeAlso: ``request(_:completion:)``
     public func request<T: Request, U: Encodable>(_ requestContents: T, requestBody: U, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
         var request: URLRequest
         do {
@@ -119,21 +75,6 @@ public final class HTTPClient {
         }
         
         return request
-    }
-    
-    private func request(_ request: URLRequest, completion: @escaping (Error?) -> Void) {
-        URLSession.shared.dataTask(with: request) { data, response, error in
-            if let error = error {
-                completion(error)
-                return
-            }
-            if let requestError = self.validateResponse(response) {
-                completion(requestError)
-                return
-            }
-            completion(nil)
-            return
-        }.resume()
     }
     
     private func request<T: Request>(_ requestContents: T, request: URLRequest, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
