@@ -121,10 +121,10 @@ extension VersatileAPIClient: VersatileRepository {
 ```swift
 VersatileAPIClient.shared.registerUser(name: "Uhooi", description: "Green monster.") { result in
     switch result {
-        case let .success(userID):
-            // Do something.
-        case let .failure(error):
-            // Do error handling.
+    case let .success(userID):
+        // Do something.
+    case let .failure(error):
+        // Do error handling.
     }
 }
 ```
