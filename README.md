@@ -3,6 +3,7 @@
 [![CI](https://github.com/uhooi/swift-http-client/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/uhooi/swift-http-client/actions/workflows/main.yml)
 [![Release](https://img.shields.io/github/v/release/uhooi/swift-http-client)](https://github.com/uhooi/swift-http-client/releases/latest)
 [![CocoaPods Version](https://img.shields.io/cocoapods/v/UHIHTTPClient.svg)](https://cocoapods.org/pods/UHIHTTPClient)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg)](https://github.com/uhooi/swift-http-client)
 [![Swift Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fuhooi%2Fswift-http-client%2Fbadge%3Ftype%3Dswift-versions)](https://swiftpackageindex.com/uhooi/swift-http-client)
 [![Platform Compatibility](https://img.shields.io/endpoint?url=https%3A%2F%2Fswiftpackageindex.com%2Fapi%2Fpackages%2Fuhooi%2Fswift-http-client%2Fbadge%3Ftype%3Dplatforms)](https://swiftpackageindex.com/uhooi/swift-http-client)
 [![License](https://img.shields.io/github/license/uhooi/swift-http-client)](https://github.com/uhooi/swift-http-client/blob/main/LICENSE)
@@ -27,7 +28,7 @@ You can add this package to `Package.swift`, include it in your target dependenc
 ```swift
 let package = Package(
     dependencies: [
-        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.2.1")),
+        .package(url: "https://github.com/uhooi/swift-http-client", .upToNextMajor(from: "0.3.0")),
     ],
     targets: [
         .target(
@@ -47,12 +48,16 @@ See [documentation](https://developer.apple.com/documentation/swift_packages/add
 This library is available through [CocoaPods](https://cocoapods.org). To install it, simply add the following line to your `Podfile`:
 
 ```ruby
-pod 'UHIHTTPClient', '~> 0.2.1'
+pod 'UHIHTTPClient', '~> 0.3.0'
 ```
 
 ### Carthage
 
-TBD
+This library is available through [Carthage](https://github.com/Carthage/Carthage). To install it, simply add the following line to your `Cartfile`:
+
+```
+github "uhooi/swift-http-client" ~> 0.3.0
+```
 
 ## How to use
 
