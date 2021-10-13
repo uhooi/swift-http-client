@@ -20,15 +20,31 @@ public final class HTTPClient {
     /// Send an HTTP request.
     /// - Parameters:
     ///   - requestContents: Request contents.
+    ///   - completion: Completion handler.
+    /// - SeeAlso: ``request(_:requestBody:completion:)``
+    public func request<T: Request>(_ requestContents: T, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
+        let request: URLRequest
+        do {
+            request = try createRequest(requestContents)
+        } catch let error {
+            completion(.failure(error))
+            return
+        }
+        
+        self.request(requestContents, request: request, completion: completion)
+    }
+    
+    /// Send an HTTP request.
+    /// - Parameters:
+    ///   - requestContents: Request contents.
     ///   - requestBody: Request body.
     ///   - completion: Completion handler.
-    public func request<T: Request, U: Encodable>(_ requestContents: T, requestBody: U? = nil, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
+    /// - SeeAlso: ``request(_:completion:)``
+    public func request<T: Request, U: Encodable>(_ requestContents: T, requestBody: U, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
         var request: URLRequest
         do {
             request = try createRequest(requestContents)
-            if let requestBody = requestBody {
-                request.httpBody = try JSONEncoder().encode(requestBody)
-            }
+            request.httpBody = try JSONEncoder().encode(requestBody)
         } catch let error {
             completion(.failure(error))
             return
