@@ -5,8 +5,8 @@ SCHEME_NAME := ${PRODUCT_NAME}
 TEST_SDK := iphonesimulator
 TEST_CONFIGURATION := Debug
 TEST_PLATFORM := iOS Simulator
-TEST_DEVICE ?= iPhone 12 Pro Max
-TEST_OS ?= 14.5
+TEST_DEVICE ?= iPhone 13 Pro Max
+TEST_OS ?= 15.0
 TEST_DESTINATION := 'platform=${TEST_PLATFORM},name=${TEST_DEVICE},OS=${TEST_OS}'
 
 .PHONY: build-debug
