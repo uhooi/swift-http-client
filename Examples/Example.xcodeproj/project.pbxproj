@@ -21,6 +21,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		790A5EFA271DAD5B001381EC /* swift-http-client */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "swift-http-client"; path = ..; sourceTree = "<group>"; };
 		7964BF062716E0F900439D49 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7964BF092716E0F900439D49 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7964BF0B2716E0F900439D49 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -29,7 +30,6 @@
 		7964BF122716E0FA00439D49 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7964BF152716E0FA00439D49 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7964BF172716E0FA00439D49 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7964D4B62716E64700439D49 /* swift-http-client */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "swift-http-client"; path = ../..; sourceTree = "<group>"; };
 		7964D4BD2716F5FB00439D49 /* JSONPlaceholderRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONPlaceholderRepository.swift; sourceTree = "<group>"; };
 		7964D4BF2716F65F00439D49 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		7964D4C42716FD1A00439D49 /* FetchAllUserRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllUserRequest.swift; sourceTree = "<group>"; };
@@ -48,11 +48,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		790A5EF9271DAD5B001381EC /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				790A5EFA271DAD5B001381EC /* swift-http-client */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
 		7964BEFD2716E0F900439D49 = {
 			isa = PBXGroup;
 			children = (
+				790A5EF9271DAD5B001381EC /* Packages */,
 				7964BF082716E0F900439D49 /* Example */,
-				7964D4B52716E62D00439D49 /* Packages */,
 				7964BF072716E0F900439D49 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,14 +86,6 @@
 				7964BF172716E0FA00439D49 /* Info.plist */,
 			);
 			path = Example;
-			sourceTree = "<group>";
-		};
-		7964D4B52716E62D00439D49 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				7964D4B62716E64700439D49 /* swift-http-client */,
-			);
-			path = Packages;
 			sourceTree = "<group>";
 		};
 		7964D4B72716F09D00439D49 /* APIClient */ = {
