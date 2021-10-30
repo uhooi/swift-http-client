@@ -10,21 +10,38 @@ on:
     paths-ignore:
       - Examples/**
 
-env:
-  DEVELOPER_DIR: /Applications/Xcode_13.0.app
-
 jobs:
-  build:
-    runs-on: macOS-11
+  run-macos:
+    name: ${{ matrix.subcommand }} with Xcode ${{ matrix.xcode }} on macOS
+    runs-on: macos-11
+    strategy:
+      matrix:
+        xcode: ["12.5.1", "13.0"]
+        subcommand: ["Build", "Test"]
     steps:
     - uses: actions/checkout@v2
-    - name: Build
-      run: swift build -v
+    - name: ${{ matrix.subcommand }}
+      run: |
+        xcodebuild -version
+        swift --version
+        swift package --version
+        subcommand=`echo ${{ matrix.subcommand }} | tr '[:upper:]' '[:lower:]'`
+        swift $subcommand -v
+      env:
+        DEVELOPER_DIR: /Applications/Xcode_${{ matrix.xcode }}.app
 
-  test:
-    runs-on: macOS-11
+  run-ubuntu:
+    name: Build and Test with Swift ${{ matrix.swift }} on Ubuntu
+    runs-on: ubuntu-latest
+    container: swift:${{ matrix.swift }}
+    strategy:
+      matrix:
+        swift: ["5.4.2", "5.5.0"]
     steps:
     - uses: actions/checkout@v2
-    - name: Test
-      run: swift test -v
+    - name: Build and Test
+      run: |
+        swift --version
+        swift package --version
+        swift test -v
 
