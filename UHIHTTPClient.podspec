@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name             = 'UHIHTTPClient'
-  spec.version          = '0.4.0'
+  spec.version          = '0.5.0'
   spec.license          = { :type => 'MIT', :file => 'LICENSE' }
   spec.summary          = 'Communicate via HTTP easily in Swift.'
   spec.homepage         = 'https://github.com/uhooi/swift-http-client'
