@@ -152,3 +152,7 @@ I would be happy if you contribute :)
 
 - [New issue](https://github.com/uhooi/swift-http-client/issues/new)
 - [New pull request](https://github.com/uhooi/swift-http-client/compare)
+
+## Stats
+
+[![Stats](https://repobeats.axiom.co/api/embed/f2fa570e3daa9586ec48ddd7649e948f2f873f39.svg "Repobeats analytics image")](https://github.com/uhooi/swift-http-client)
