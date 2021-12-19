@@ -1,4 +1,7 @@
 import Foundation
+#if canImport(FoundationNetworking)
+import FoundationNetworking
+#endif
 
 @available(iOS, introduced: 13.0, deprecated: 15.0, message: "Use the built-in API instead")
 extension URLSession {
