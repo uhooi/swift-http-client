@@ -13,10 +13,15 @@ Communicate via HTTP easily in Swift.
 
 ## Table of Contents
 
+- [Requirement](#Requirement)
 - [Installation](#installation)
 - [How to use](#how-to-use)
 - [Contribution](#contribution)
 - [Stats](#stats)
+
+## Requirement
+
+- Xcode 13.2+ (Swift 5.5.2+)
 
 ## Installation
 
@@ -108,7 +113,7 @@ You can just import `HTTPClient` to use it.
 
     ```swift
     protocol VersatileRepository {
-        func registerUser(name: String, description: String, completion: @escaping (Result<UserID, Error>) -> Void)
+        func registerUser(name: String, description: String) async throws -> UserID
     }
     ```
 
@@ -122,28 +127,21 @@ You can just import `HTTPClient` to use it.
     }
     
     extension VersatileAPIClient: VersatileRepository {
-        func registerUser(name: String, description: String, completion: @escaping (Result<UserID, Error>) -> Void) {
+        func registerUser(name: String, description: String) async throws -> UserID {
             let requestBody = RegisterUserRequestBody(name: name, description: description)
-            httpClient.request(RegisterUserRequest(), requestBody: requestBody) { result in
-                switch result {
-                case let .success(responseBody):
-                    completion(.success(responseBody.convertToUserID()))
-                case let .failure(error):
-                    completion(.failure(error))
-                }
-            }
+            let responseBody = try await httpClient.request(RegisterUserRequest(), requestBody: requestBody)
+            return responseBody.convertToUserID()
         }
     }
     ```
 
     ```swift
-    VersatileAPIClient.shared.registerUser(name: "Uhooi", description: "Green monster.") { result in
-        switch result {
-        case let .success(userID):
-            // Do something.
-        case let .failure(error):
-            // Do error handling.
-        }
+    do {
+        let userID = try await VersatileAPIClient.shared.registerUser(name: "Uhooi", description: "Green monster.")
+        // Do something.
+    } catch {
+        // Do error handling.
+        print(error)
     }
     ```
 

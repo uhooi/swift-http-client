@@ -23,18 +23,43 @@ public final class HTTPClient {
     /// Send an HTTP request.
     /// - Parameters:
     ///   - requestContents: Request contents.
+    /// - Returns: Response body.
+    /// - SeeAlso: ``request(_:requestBody:)``
+    public func request<T: Request>(_ requestContents: T) async throws -> T.ResponseBody {
+        let request = try createRequest(requestContents)
+        return try await self.request(requestContents, request: request)
+    }
+
+    /// Send an HTTP request.
+    /// - Parameters:
+    ///   - requestContents: Request contents.
+    ///   - requestBody: Request body.
+    /// - Returns: Response body.
+    /// - SeeAlso: ``request(_:)``
+    public func request<T: Request, U: Encodable>(_ requestContents: T, requestBody: U) async throws -> T.ResponseBody {
+        var request: URLRequest
+        request = try createRequest(requestContents)
+        request.httpBody = try JSONEncoder().encode(requestBody)
+        return try await self.request(requestContents, request: request)
+    }
+    
+    /// Send an HTTP request.
+    /// - Parameters:
+    ///   - requestContents: Request contents.
     ///   - completion: Completion handler.
     /// - SeeAlso: ``request(_:requestBody:completion:)``
+    @available(iOS, deprecated: 13.0, message: "Consider using asynchronous alternative function")
+    @available(macOS, deprecated: 10.15, message: "Consider using asynchronous alternative function")
+    @available(tvOS, deprecated: 13.0, message: "Consider using asynchronous alternative function")
+    @available(watchOS, deprecated: 6.0, message: "Consider using asynchronous alternative function")
     public func request<T: Request>(_ requestContents: T, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
-        let request: URLRequest
         do {
-            request = try createRequest(requestContents)
-        } catch let error {
+            let request = try createRequest(requestContents)
+            self.request(requestContents, request: request, completion: completion)
+        } catch {
             completion(.failure(error))
             return
         }
-        
-        self.request(requestContents, request: request, completion: completion)
     }
     
     /// Send an HTTP request.
@@ -43,17 +68,20 @@ public final class HTTPClient {
     ///   - requestBody: Request body.
     ///   - completion: Completion handler.
     /// - SeeAlso: ``request(_:completion:)``
+    @available(iOS, deprecated: 13.0, message: "Consider using asynchronous alternative function")
+    @available(macOS, deprecated: 10.15, message: "Consider using asynchronous alternative function")
+    @available(tvOS, deprecated: 13.0, message: "Consider using asynchronous alternative function")
+    @available(watchOS, deprecated: 6.0, message: "Consider using asynchronous alternative function")
     public func request<T: Request, U: Encodable>(_ requestContents: T, requestBody: U, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
-        var request: URLRequest
         do {
+            var request: URLRequest
             request = try createRequest(requestContents)
             request.httpBody = try JSONEncoder().encode(requestBody)
-        } catch let error {
+            self.request(requestContents, request: request, completion: completion)
+        } catch {
             completion(.failure(error))
             return
         }
-        
-        self.request(requestContents, request: request, completion: completion)
     }
     
     // MARK: Other Private Methods
@@ -80,6 +108,16 @@ public final class HTTPClient {
         return request
     }
     
+    private func request<T: Request>(_ requestContents: T, request: URLRequest) async throws -> T.ResponseBody {
+        let (data, response) = try await URLSession.shared.data(from: request)
+        if let requestError = validateResponse(response) {
+            throw requestError
+        }
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.keyDecodingStrategy = .convertFromSnakeCase
+        return try jsonDecoder.decode(T.ResponseBody.self, from: data)
+    }
+    
     private func request<T: Request>(_ requestContents: T, request: URLRequest, completion: @escaping (Result<T.ResponseBody, Error>) -> Void) {
         URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
@@ -100,7 +138,7 @@ public final class HTTPClient {
                 let responseBody = try jsonDecoder.decode(T.ResponseBody.self, from: data)
                 completion(.success(responseBody))
                 return
-            } catch let error {
+            } catch {
                 completion(.failure(error))
                 return
             }
