@@ -72,7 +72,6 @@ github "uhooi/swift-http-client" ~> 0.6.0
 You can just import `HTTPClient` to use it.
 
 1. Implement a request body structure that conforms to the `Encodable` protocol. (Optional)
-
     ```swift
     struct RegisterUserRequestBody: Encodable {
         let name: String
@@ -81,7 +80,6 @@ You can just import `HTTPClient` to use it.
     ```
 
 2. Implement a response body structure that conforms to the `Decodable` protocol.
-
     ```swift
     struct RegisterUserResponseBody: Decodable {
         let id: String
@@ -93,7 +91,6 @@ You can just import `HTTPClient` to use it.
     ```
 
 3. Implement a request structure that conforms to the `Request` protocol.
-
     ```swift
     import HTTPClient
     
@@ -106,7 +103,6 @@ You can just import `HTTPClient` to use it.
     ```
 
 4. Create an instance of the `HTTPClient` class and call the `request` method.
-
     ```swift
     struct UserID: Identifiable, Equatable {
         let id: String
