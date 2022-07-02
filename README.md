@@ -13,15 +13,17 @@ Communicate via HTTP easily in Swift.
 
 ## Table of Contents
 
-- [Requirement](#Requirement)
+- [System requirements](#system-requirements)
 - [Installation](#installation)
 - [How to use](#how-to-use)
 - [Contribution](#contribution)
 - [Stats](#stats)
 
-## Requirement
+## System requirements
 
-- Xcode 13.2+ (Swift 5.5.2+)
+- Swift: 5.5+
+- Xcode: 13.0+
+- macOS: 11.3+
 
 ## Installation
 
